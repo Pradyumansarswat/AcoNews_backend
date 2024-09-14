@@ -1,4 +1,4 @@
-// server.js
+
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
@@ -7,13 +7,12 @@ const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
 
-// Load the path to the service account key from .env file
+
 const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
 
-// Ensure the path is correctly resolved
+
 const serviceAccount = JSON.parse(fs.readFileSync(path.resolve(__dirname, serviceAccountPath), 'utf8'));
 
-// Initialize Firebase Admin SDK
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: process.env.FIREBASE_DATABASE_URL,
@@ -26,7 +25,7 @@ app.use(express.json());
 const port = process.env.PORT || 8000;
 const GNEWS_API_KEY = process.env.GNEWS_API_KEY;
 
-// Route to fetch top headlines with optional parameters
+
 app.get('/top-headlines', async (req, res) => {
     const category = req.query.category || 'general';
     const country = req.query.country || 'us';
@@ -40,7 +39,7 @@ app.get('/top-headlines', async (req, res) => {
         const response = await axios.get(url);
         const articles = response.data.articles;
 
-        // Store articles in Firebase Realtime Database
+    
         const ref = admin.database().ref('top-headlines');
         await ref.set({ articles });
 
@@ -56,12 +55,12 @@ app.get('/top-headlines', async (req, res) => {
     }
 });
 
-// Route to search news articles with optional parameters
+
 app.get('/search-news', async (req, res) => {
     try {
         const { query, country, language, category, page, pageSize } = req.query;
 
-        // Make sure query is passed
+        
         if (!query) {
             return res.status(400).json({ message: 'Query parameter is required' });
         }
