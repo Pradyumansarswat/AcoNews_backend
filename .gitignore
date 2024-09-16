@@ -1,5 +1,6 @@
 # Node modules
 node_modules/
+package-lock.json
 
 # Logs
 logs/
@@ -12,7 +13,7 @@ yarn-error.log*
 .env
 config/serviceAccountKey.json
 
-package-lock.json
+
 
 # Optional npm cache directory
 .npm/
