@@ -11,7 +11,7 @@ yarn-error.log*
 # Environment variables
 .env
 config/serviceAccountKey.json
-
+packege-lock.json
 
 # Optional npm cache directory
 .npm/
